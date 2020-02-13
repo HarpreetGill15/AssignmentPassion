@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PassionProject.Models.Jersey>
+
+@{
+    ViewBag.Title = "ListJerseys";
+}
+
+<h2>ListJerseys</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.jerseyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.jerseySize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.jerseyDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.jerseyPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.jerseyStock)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.jerseyName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.jerseySize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.jerseyDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.jerseyPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.jerseyStock)
+        </td>
+        <td>
+            @Html.ActionLink("Add to Order", "Edit", new { id=item.jerseyId }) |
+            @Html.ActionLink("View", "View", new { id=item.jerseyId }) 
+        </td>
+    </tr>
+}
+
+</table>

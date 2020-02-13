@@ -17,5 +17,10 @@ namespace PassionProject.Controllers
             List<Customer> customers = db.Customers.SqlQuery("Select * from Customers").ToList();
             return View(customers);
         }
+        public ActionResult ListJerseys()
+        {
+            List<Jersey> jerseys = db.Jerseys.SqlQuery("Select * from Jerseys").ToList();
+            return View(jerseys);
+        }
     }
 }

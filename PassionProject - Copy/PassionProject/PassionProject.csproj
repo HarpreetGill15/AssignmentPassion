@@ -156,10 +156,15 @@
     <Compile Include="Migrations\202002122301550_another101010.designer.cs">
       <DependentUpon>202002122301550_another101010.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002130215036_orderchange.cs" />
+    <Compile Include="Migrations\202002130215036_orderchange.designer.cs">
+      <DependentUpon>202002130215036_orderchange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Jersey.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\ViewModels\ShowOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -205,10 +210,11 @@
     <Content Include="Views\Jersey\Update.cshtml" />
     <Content Include="Views\Jersey\DeleteJersey.cshtml" />
     <Content Include="Views\Jersey\JerseyView.cshtml" />
+    <Content Include="Views\Customer\ListJerseys.cshtml" />
+    <Content Include="Views\Order\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -241,6 +247,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002122301550_another101010.resx">
       <DependentUpon>202002122301550_another101010.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002130215036_orderchange.resx">
+      <DependentUpon>202002130215036_orderchange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

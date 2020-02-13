@@ -14,10 +14,11 @@ namespace PassionProject.Models
         [Key]
         public int orderId { get; set; }
 
-        public int customerId { get; set; }
-        [ForeignKey("customerId")]
+        public DateTime orderDate { get; set; }
+        public double orderPrice { get; set; }
+        public int CustomerId { get; set; }
+        [ForeignKey("CustomerId")]
         public virtual Customer Customer { get; set; }
-
         
 
         public ICollection<Jersey> Jerseys { get; set; }
