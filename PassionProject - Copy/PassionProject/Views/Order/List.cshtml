@@ -9,33 +9,59 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Customer.customerFirstName)
+            Order Id
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.orderDate)
+            Customer Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.orderPrice)
+            Order Date
         </th>
-        <th></th>
+        <th>
+            Order Price
+        </th>
     </tr>
+    @{
+        foreach(var item in Model){
+            <tr>
+                <td>
+                    @item.orderId
+                </td>
+                <td>
+                    @item.Customer.customerFirstName  @item.Customer.customerLastName
+                </td>
+                <td>
+                    @item.orderDate
+                </td>
+                <td>
+                    @item.orderPrice
+                </td>
+            </tr>
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Customer.customerFirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.orderDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.orderPrice)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.orderId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.orderId })
-        </td>
-    </tr>
-}
+    }
+
+    @*@{
+            foreach (var jersey in Model.jerseys)
+            {
+                <tr>
+                    <td>
+                        @jersey.jerseyName
+                    </td>
+                    <td>
+                        @jersey.jerseySize
+                    </td>
+                    <td>
+                        @jersey.jerseyPrice
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new { id = jersey.jerseyId })
+                    </td>
+                </tr>
+            }
+        }*@
+
 
 </table>
+@Html.ActionLink("Back to List", "List")|
+@*@Html.ActionLink("Buy", "Buy", new { id = jersey.jerseyId })*@

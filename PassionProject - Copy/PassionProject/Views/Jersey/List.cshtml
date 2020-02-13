@@ -12,19 +12,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.jerseyName)
+            Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.jerseySize)
+            Size
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.jerseyDescription)
+            Description
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.jerseyPrice)
+            Price
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.jerseyStock)
+            Stock
         </th>
         <th></th>
     </tr>
@@ -32,19 +32,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.jerseyName)
+            @item.jerseyName
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.jerseySize)
+            @item.jerseySize
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.jerseyDescription)
+            @item.jerseyDescription
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.jerseyPrice)
+            @item.jerseyPrice
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.jerseyStock)
+            @item.jerseyStock
         </td>
         <td>
             @Html.ActionLink("Edit", "Update", new { id=item.jerseyId }) |

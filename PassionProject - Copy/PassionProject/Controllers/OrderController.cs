@@ -12,9 +12,9 @@ namespace PassionProject.Controllers
     {
         private ShopContext db = new ShopContext();
         // GET: Order
-        public ActionResult List(int id)
+        public ActionResult List()
         {
-            List<Order> orders = db.Orders.SqlQuery("Select * from OrderJerseys where orderid = "+id).ToList();
+            List<Order> orders = db.Orders.SqlQuery("Select * from Orders").ToList();
             return View(orders);
         }
 

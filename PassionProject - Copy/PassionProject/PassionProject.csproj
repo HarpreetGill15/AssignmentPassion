@@ -164,6 +164,7 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Jersey.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\ViewModels\AddOrder.cs" />
     <Compile Include="Models\ViewModels\ShowOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
