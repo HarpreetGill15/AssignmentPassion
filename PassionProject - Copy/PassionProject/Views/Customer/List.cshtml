@@ -1,0 +1,22 @@
+﻿@model List <PassionProject.Models.Customer>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+@{ 
+
+    foreach (var Customer in Model)
+    {
+        <span>id: @Customer.customerId</span><br />
+        <span>firstname: @Customer.customerFirstName</span><br />
+        <span>lastname: @Customer.customerLastName</span><br />
+        <span>email: @Customer.customerEmail</span><br/>
+        <span>phone: @Customer.customerPhone</span><br/>
+        <span>address: @Customer.customerAddress</span><br/>
+        <span>postal: @Customer.customerPostalCode</span><br/>
+        <span>country: @Customer.customerCountry</span><br/>
+    }
+}
