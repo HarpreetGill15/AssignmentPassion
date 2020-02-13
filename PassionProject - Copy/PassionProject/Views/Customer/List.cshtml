@@ -1,4 +1,4 @@
-﻿@model List <PassionProject.Models.Customer>
+﻿@model IEnumerable<PassionProject.Models.Customer>
 
 @{
     ViewBag.Title = "List";
@@ -6,17 +6,64 @@
 
 <h2>List</h2>
 
-@{ 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.customerFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customerLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customerEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customerPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customerAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customerPostalCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customerCountry)
+        </th>
+        <th></th>
+    </tr>
 
-    foreach (var Customer in Model)
-    {
-        <span>id: @Customer.customerId</span><br />
-        <span>firstname: @Customer.customerFirstName</span><br />
-        <span>lastname: @Customer.customerLastName</span><br />
-        <span>email: @Customer.customerEmail</span><br/>
-        <span>phone: @Customer.customerPhone</span><br/>
-        <span>address: @Customer.customerAddress</span><br/>
-        <span>postal: @Customer.customerPostalCode</span><br/>
-        <span>country: @Customer.customerCountry</span><br/>
-    }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.customerFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.customerLastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.customerEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.customerPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.customerAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.customerPostalCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.customerCountry)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.customerId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.customerId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.customerId })
+        </td>
+    </tr>
 }
+
+</table>
