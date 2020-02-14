@@ -25,7 +25,7 @@
         foreach(var item in Model){
             <tr>
                 <td>
-                    @item.orderId
+                    <a href="/Order/Show/@item.orderId">@item.orderId</a>
                 </td>
                 <td>
                     @item.Customer.customerFirstName  @item.Customer.customerLastName

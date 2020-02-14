@@ -1,0 +1,51 @@
+﻿@model PassionProject.Models.ViewModels.ShowOrder
+@{
+    ViewBag.Title = "Show";
+}
+<h2>Order @Model.ord.orderId</h2>
+<p>@Model.ord.orderDate</p>
+@* This view is to show the details of one order and add a jersey to this order *@
+<form method="post" action="/Order/AddJersey/@Model.ord.orderId">
+    <select name="jerseyId" id="jerseyId">
+        @{ 
+            foreach(var jersey in Model.allJerseys)
+            {
+                <option value="@jersey.jerseyId">@jersey.jerseyName</option>
+            }
+        }
+    </select>
+    <input type="submit" value="Add Jersey" />
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            Jersey Name
+        </th>
+        <th>
+            Size
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Remove
+        </th>
+    </tr>
+    @{
+        
+        foreach (var orderedJersey in Model.jerseys)
+        {
+            
+        <tr>
+            <td>@orderedJersey.jerseyName</td>
+            <td>@orderedJersey.jerseySize</td>
+            <td>@orderedJersey.jerseyPrice</td>
+            <td><a href="/Order/RemoveJersey/@Model.ord.orderId?jerseyId=@orderedJersey.jerseyId">Remove</a></td>
+        </tr>
+        }
+
+
+        <span>Total: $@Model.ord.orderPrice</span>
+    }
+    </table>

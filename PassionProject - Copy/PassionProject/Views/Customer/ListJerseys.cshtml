@@ -24,8 +24,8 @@
         </th>
     </tr>
 
-    @{
-        foreach (var jersey in Model.jerseys)
+    @*@{
+        foreach (var jersey in Model)
         {
             <tr>
                 <td>
@@ -42,11 +42,10 @@
                 </td>
             </tr>
         }
-    }
-    @Html.ActionLink("Add to Order", "Edit", new { id = item.jerseyId }) |
-    @Html.ActionLink("View", "View", new { id = item.jerseyId })
-    </td>
-    </tr>
+    }*@
+    @*@Html.ActionLink("Add to Order", "Edit", new { id = item.jerseyId }) |
+    @Html.ActionLink("View", "View", new { id = item.jerseyId })*@
+   
     }
 
 </table>

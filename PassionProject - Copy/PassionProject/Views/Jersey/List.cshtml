@@ -4,54 +4,38 @@
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+<h2>Our Jerseys</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Add")
+    <a href="/Jersey/Add" class="btn btn-success">Add Jersey</a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Name
-        </th>
-        <th>
-            Size
-        </th>
-        <th>
-            Description
-        </th>
-        <th>
-            Price
-        </th>
-        <th>
-            Stock
-        </th>
-        <th></th>
-    </tr>
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-4 d-flex pb-3">
+                <div class="card">
+                    <div class="card-header">
+                        @item.jerseyName
+                    </div>
+                    <div class="card-body">
+                        <div class="card-img bg-primary" style="height:250px">
+                            <div class="w-100 h-100 bg-light text-black-50 text-center">Coming Soon</div>
+                        </div>
+                        <div class="card-title">
+                            <p>Price: $@item.jerseyPrice<span class="badge badge-warning">@item.jerseySize</span></p>
+                        </div>
+                        <p class="card-text">@item.jerseyDescription</p>
+                        <p>In Stock: <span class="badge badge-info">@item.jerseyStock</span></p>
+                        <a href="/Jersey/Update/@item.jerseyId" class="btn btn-secondary">Edit</a>
+                        <a href="/Order/New/@item.jerseyId" class="btn btn-info">Order</a>
+                        <a href="/Jersey/Delete/@item.jerseyId" class="btn btn-danger">Delete</a>
+                    </div>
+                    
+                </div>
+            </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @item.jerseyName
-        </td>
-        <td>
-            @item.jerseySize
-        </td>
-        <td>
-            @item.jerseyDescription
-        </td>
-        <td>
-            @item.jerseyPrice
-        </td>
-        <td>
-            @item.jerseyStock
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Update", new { id=item.jerseyId }) |
-            @Html.ActionLink("Details", "Show", new { id=item.jerseyId }) |
-            @Html.ActionLink("Delete", "DeleteJersey", new { id=item.jerseyId })
-        </td>
-    </tr>
-}
+        }
+    </div>
+</div>
 
-</table>

@@ -13,5 +13,8 @@ namespace PassionProject.Models.ViewModels
 
         //a list of all the jerseys in that order
         public List<Jersey> jerseys { get; set; }
+
+        //list of all jersey for dropdown to add to the order
+        public List<Jersey> allJerseys { get; set; }
     }
 }
