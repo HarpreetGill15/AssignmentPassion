@@ -1,0 +1,26 @@
+﻿@model PassionProject.Models.ViewModels.AddOrder
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add</h2>
+
+<form method="post" action="/Order/Add/">
+    <select name="customerId" id="customerId">
+        @{
+            foreach (var customer in Model.Customers)
+            {
+                <option value="@customer.customerId">@customer.customerFirstName @customer.customerLastName</option>
+            }
+        }
+    </select>
+    @*<select name="jerseyId" id="jerseyId">
+        @{
+            foreach (var jersey in Model.Jerseys)
+            {
+                <option value="@jersey.jerseyId">@jersey.jerseyName</option>
+            }
+        }
+    </select>*@
+    <input type="submit" value="Add Order" />
+</form>
