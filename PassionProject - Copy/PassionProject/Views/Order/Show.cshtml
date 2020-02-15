@@ -2,8 +2,8 @@
 @{
     ViewBag.Title = "Show";
 }
-<h2>Order @Model.ord.orderId</h2>
-<p>@Model.ord.orderDate</p>
+<h2>Order #@Model.ord.orderId</h2>
+<p>Order Date: @Model.ord.orderDate</p>
 @* This view is to show the details of one order and add a jersey to this order *@
 <form method="post" action="/Order/AddJersey/@Model.ord.orderId">
     <select name="jerseyId" id="jerseyId">
@@ -46,8 +46,12 @@
         }
 
 
-        
+
     }
     </table>
-@* Create total price of order later *@
-<span>Total: $<i>coming soon</i></span>
+@* Referenceing youtube video on getting total price of order https://www.youtube.com/watch?v=v-g_q3z3aGc *@
+<form method="post" action="/Order/CompleteOrder/@Model.ord.orderId">
+    <input name="sum" id="sum" class="hide" value="@Model.jerseys.Sum(i => i.jerseyPrice)"/>
+    <input type="submit" class="btn btn-info" name="sum" id="sum" value="Complete Order"/>
+</form>
+<span>Total: $@Model.jerseys.Sum(i => i.jerseyPrice)</span>

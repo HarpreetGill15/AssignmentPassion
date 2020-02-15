@@ -14,13 +14,13 @@
             }
         }
     </select>
-    @*<select name="jerseyId" id="jerseyId">
+    <select name="jerseyId" id="jerseyId">
         @{
             foreach (var jersey in Model.Jerseys)
             {
                 <option value="@jersey.jerseyId">@jersey.jerseyName</option>
             }
         }
-    </select>*@
+    </select>
     <input type="submit" value="Add Order" />
 </form>

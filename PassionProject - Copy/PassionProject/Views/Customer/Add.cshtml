@@ -1,0 +1,73 @@
+﻿@model PassionProject.Models.Customer
+
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add a Customer</h2>
+
+<form method="post" action="/Customer/Add">
+    <div class="form-horizontal">
+        <h4>Customer</h4>
+        <div class="form-group">
+            <label class="custom-control-label col-md-2">First Name</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="customerFirstName" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="custom-control-label col-md-2">Last Name</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="customerLastName" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="custom-control-label col-md-2">Email</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="customerEmail" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="custom-control-label col-md-2">Phone Number</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="customerPhone" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="custom-control-label col-md-2">Address</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="customerAddress" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="custom-control-label col-md-2">Postal Code</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="customerPostalCode" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="custom-control-label col-md-2">Country</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="customerCountry" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+    
+
+
+<div>
+    <a href="/Customer/List">Back</a>
+</div>

@@ -63,6 +63,8 @@ namespace PassionProject.Controllers
 
                 //execute command 
                 db.Database.ExecuteSqlCommand(query, sqlParameter);
+
+               
             }
                 
                 
@@ -121,18 +123,44 @@ namespace PassionProject.Controllers
             return View(addOrder);
         }
         [HttpPost]
-        public ActionResult Add(int customerId)
+        public ActionResult Add(int customerId,int jerseyId)
         {
+            //add to orders
             string query = "insert into Orders (customerid,orderDate) values(@customerId,@date)";
             SqlParameter[] sqlParameter = new SqlParameter[2];
             sqlParameter[0] = new SqlParameter("@customerId", customerId);
             sqlParameter[1] = new SqlParameter("@date", DateTime.Now);
 
+            
+            try
+            {
+                db.Database.ExecuteSqlCommand(query, sqlParameter);
+            }
+            catch (Exception e)
+            {
+                //write the error to the console
+                Debug.WriteLine(e);
+                return RedirectToAction("List");
+            }
+
+            
+            return RedirectToAction("List");
+        }
+        //when order is complete return to orders list 
+        //make it so the order cannot be edited later
+        [HttpPost]
+        public ActionResult CompleteOrder(int id, double sum)
+        {
+            Debug.WriteLine("The order is " + id + " and the total is " + sum);
+            //update the order with the total price
+            string query = "update Orders set orderPrice=@sum where orderId = @orderId";
+            SqlParameter[] sqlParameter = new SqlParameter[2];
+            sqlParameter[0] = new SqlParameter("@orderId", id);
+            sqlParameter[1] = new SqlParameter("@sum", sum);
+            
+
             db.Database.ExecuteSqlCommand(query, sqlParameter);
-            
-            
-            
-            
+
             return RedirectToAction("List");
         }
     }
