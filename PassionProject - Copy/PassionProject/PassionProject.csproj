@@ -167,6 +167,7 @@
     <Compile Include="Models\Jersey.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\ViewModels\AddOrder.cs" />
+    <Compile Include="Models\ViewModels\ShowCustomer.cs" />
     <Compile Include="Models\ViewModels\ShowOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -306,7 +307,6 @@
     <Content Include="Views\Jersey\Update.cshtml" />
     <Content Include="Views\Jersey\DeleteJersey.cshtml" />
     <Content Include="Views\Jersey\JerseyView.cshtml" />
-    <Content Include="Views\Customer\ListJerseys.cshtml" />
     <Content Include="Views\Order\List.cshtml" />
     <Content Include="Views\Order\Show.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
@@ -321,6 +321,9 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Order\Add.cshtml" />
     <Content Include="Views\Customer\Add.cshtml" />
+    <Content Include="Views\Customer\Show.cshtml" />
+    <Content Include="Views\Customer\DeleteCustomer.cshtml" />
+    <Content Include="Views\Order\DeleteOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

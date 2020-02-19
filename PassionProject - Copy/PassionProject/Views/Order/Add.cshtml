@@ -1,26 +1,26 @@
-﻿@model PassionProject.Models.ViewModels.AddOrder
+﻿@model List<PassionProject.Models.Customer>
+
 @{
     ViewBag.Title = "Add";
 }
 
-<h2>Add</h2>
+<h2>Add Order</h2>
 
 <form method="post" action="/Order/Add/">
-    <select name="customerId" id="customerId">
-        @{
-            foreach (var customer in Model.Customers)
-            {
-                <option value="@customer.customerId">@customer.customerFirstName @customer.customerLastName</option>
+    <div class="form-group">
+        <label>Which customer do you want to add this order to?</label>
+        <select name="customerId" id="customerId" class="custom-select">
+            @{
+                foreach (var customer in Model)
+                {
+                    <option value="@customer.customerId">@customer.customerFirstName @customer.customerLastName</option>
+                }
             }
-        }
-    </select>
-    <select name="jerseyId" id="jerseyId">
-        @{
-            foreach (var jersey in Model.Jerseys)
-            {
-                <option value="@jersey.jerseyId">@jersey.jerseyName</option>
-            }
-        }
-    </select>
-    <input type="submit" value="Add Order" />
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <input type="submit" value="Add Order" class="btn btn-success" />
+    </div>
+    
 </form>

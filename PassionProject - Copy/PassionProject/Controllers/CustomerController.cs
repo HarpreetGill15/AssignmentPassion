@@ -1,5 +1,6 @@
 ﻿using PassionProject.Data;
 using PassionProject.Models;
+using PassionProject.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -17,11 +18,6 @@ namespace PassionProject.Controllers
         {
             List<Customer> customers = db.Customers.SqlQuery("Select * from Customers").ToList();
             return View(customers);
-        }
-        public ActionResult ListJerseys()
-        {
-            List<Jersey> jerseys = db.Jerseys.SqlQuery("Select * from Jerseys").ToList();
-            return View(jerseys);
         }
         //add customer 
         public ActionResult Add()
@@ -42,6 +38,40 @@ namespace PassionProject.Controllers
             sqlParameters[6] = new SqlParameter("@country", customerCountry);
 
             db.Database.ExecuteSqlCommand(query, sqlParameters);
+
+            return RedirectToAction("List");
+        }
+        public ActionResult Show(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            Customer customer = db.Customers.SqlQuery("select * from Customers where customerId = @id", new SqlParameter("@id", id)).FirstOrDefault();
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            //show list of orders of that customer
+            List<Order> orders = db.Orders.SqlQuery("Select * from Orders where customerId=@id", new SqlParameter("@id",id)).ToList();
+            //show the jerseys this customer ordered
+
+            ShowCustomer show = new ShowCustomer();
+            show.Customer = customer;
+            show.orders = orders;
+            return View(show);
+        }
+        public ActionResult DeleteCustomer(int id)
+        {
+            Customer customer = db.Customers.SqlQuery("select * from Customers where customerId = @id", new SqlParameter("@id", id)).FirstOrDefault();
+            return View(customer);
+        }
+        public ActionResult Delete(int id)
+        {
+            string query = "delete from Customers where customerId= @id";
+            SqlParameter parameter = new SqlParameter("@id", id);
+
+            db.Database.ExecuteSqlCommand(query, parameter);
 
             return RedirectToAction("List");
         }

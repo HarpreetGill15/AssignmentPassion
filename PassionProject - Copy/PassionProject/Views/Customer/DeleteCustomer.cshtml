@@ -1,0 +1,38 @@
+﻿@model PassionProject.Models.Customer
+@{
+    ViewBag.Title = "DeleteCustomer";
+}
+
+
+<h3>Are you sure you want to delete the customer: @Model.customerFirstName @Model.customerLastName</h3>
+<div>
+    <div>
+        <label class="font-weight-bold">First Name</label>
+        <label class="font-italic">@Model.customerFirstName</label>
+    </div>
+    <div>
+        <label class="font-weight-bold">Last Name</label>
+        <label class="font-italic">@Model.customerLastName</label>
+    </div>
+    <div>
+        <label class="font-weight-bold">Email</label>
+        <label class="font-italic">@Model.customerEmail</label>
+    </div>
+    <div>
+        <label class="font-weight-bold">Address</label>
+        <label class="font-italic">@Model.customerAddress</label>
+    </div>
+    <div>
+        <label class="font-weight-bold">Postal Code</label>
+        <label class="font-italic">@Model.customerPostalCode</label>
+    </div>
+    <div>
+        <label class="font-weight-bold">Country</label>
+        <label class="font-italic">@Model.customerCountry</label>
+    </div>
+    <form class="" action="/Customer/Delete/@Model.customerId">
+        <input type="submit" value="Delete Customer" class="btn btn-danger" />
+        <a href="/Customer/List" class="btn btn-primary">Back</a>
+    </form>
+</div>
+

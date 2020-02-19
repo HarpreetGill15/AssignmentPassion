@@ -4,10 +4,10 @@
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+<h2>List of Customers</h2>
 
 <p>
-    <a href="/Customer/Add">Add Customer</a>
+    <a href="/Customer/Add" class="btn btn-success">Add Customer</a>
 </p>
 <table class="table">
     <tr>
@@ -59,9 +59,9 @@
             @item.customerCountry
         </td>
         <td>
-            <a href="/Customer/Show/@item.customerId">View</a>
-            <a href="/Customer/Update/@item.customerId">Update</a>
-            <a href="/Customer/Delete/@item.customerId">Delete</a>
+            <a href="/Customer/Show/@item.customerId" class="btn btn-info">View</a>
+            <a href="/Customer/Update/@item.customerId" class="btn btn-secondary">Update</a>
+            <a href="/Customer/DeleteCustomer/@item.customerId" class="btn btn-danger">Delete</a>
         </td>
     </tr>
 }

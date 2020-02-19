@@ -20,11 +20,19 @@ namespace PassionProject.Controllers
             List<Order> orders = db.Orders.SqlQuery("Select * from Orders").ToList();
             return View(orders);
         }
-        public ActionResult Show(int id)
+        public ActionResult Show(int? id)
         {
+            //check if user lands on page without a given id
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest,"order does not exist");
+            }
             //get the order with the id that is passed
             Order order = db.Orders.SqlQuery("select * from Orders where orderid=@OrderId", new SqlParameter("@OrderId", id)).FirstOrDefault();
-            
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
             //also need the jerseys for that order
             //select * from jerseys and inner join with orderjerseys on jersey id where order id = passed value
             string query = "select * from Jerseys inner join OrderJerseys on Jerseys.jerseyId = OrderJerseys.Jersey_jerseyId where OrderJerseys.Order_orderId = @id";
@@ -55,28 +63,30 @@ namespace PassionProject.Controllers
             List<Jersey> list = db.Jerseys.SqlQuery(check, sql).ToList();
             if(list.Count <= 0)
             {
-                //insert the order id and jersey id into the orderJerseys table
-                string query = "insert into OrderJerseys (Order_orderId, Jersey_jerseyId) values (@orderId,@jerseyId)";
-                SqlParameter[] sqlParameter = new SqlParameter[2];
-                sqlParameter[0] = new SqlParameter("@orderId", id);
-                sqlParameter[1] = new SqlParameter("@jerseyid", jerseyId);
+                //update the stock of a the jersey
+                ////get the stock of the jersey
+                List<Jersey> jerseyList = db.Jerseys.SqlQuery("select * from jerseys where jerseyId = @id", new SqlParameter("@id", jerseyId)).ToList();
+                //get the jersey stock int from the jersey list and add it to an int
+                int stock = jerseyList.First().jerseyStock - 1;
+                //update the stock to be stock - 1
+                string updateStock = "update jerseys set jerseyStock=@stock where jerseyId =@id";
+                SqlParameter[] sqlParameters = new SqlParameter[2];
+                sqlParameters[0] = new SqlParameter("@stock", stock);
+                sqlParameters[1] = new SqlParameter("@id", jerseyId);
 
-                //execute command 
-                db.Database.ExecuteSqlCommand(query, sqlParameter);
+                Debug.WriteLine("updating jersey id " + jerseyId + " so that the stock lowers from " + jerseyList.First().jerseyStock + " to " + stock);
+                int count = db.Database.ExecuteSqlCommand(updateStock, sqlParameters);
 
-               
+                    //insert the order id and jersey id into the orderJerseys table
+                    string query = "insert into OrderJerseys (Order_orderId, Jersey_jerseyId) values (@orderId,@jerseyId)";
+                    SqlParameter[] sqlParameter = new SqlParameter[2];
+                    sqlParameter[0] = new SqlParameter("@orderId", id);
+                    sqlParameter[1] = new SqlParameter("@jerseyid", jerseyId);
+
+                    //execute command 
+                    db.Database.ExecuteSqlCommand(query, sqlParameter);
+
             }
-                
-                
-
-                //update price of order
-                //string priceQuery = "update Orders set orderPrice=@price where orderid=@orderId";
-                //SqlParameter[] sql = new SqlParameter[2];
-                //sql[0] = new SqlParameter("@orderId", id);
-                //sql[1] = new SqlParameter("@price", price);
-
-                //ececute update price command
-                //db.Database.ExecuteSqlCommand(priceQuery, sql);
             return RedirectToAction("Show/"+id);
         }
         //remove jersey from order
@@ -93,37 +103,35 @@ namespace PassionProject.Controllers
 
             //execute command 
             db.Database.ExecuteSqlCommand(query, sqlParameter);
-            //update price of order
-            //string priceQuery = "update Orders set orderPrice=@price where orderid=@orderId";
-            //SqlParameter[] sql = new SqlParameter[2];
-            //sql[0] = new SqlParameter("@orderId", id);
-            //sql[1] = new SqlParameter("@price", price);
+            //update the stock of a the jersey
+            ////get the stock of the jersey
+            List<Jersey> jerseyList = db.Jerseys.SqlQuery("select * from jerseys where jerseyId = @id", new SqlParameter("@id", jerseyId)).ToList();
+            //get the jersey stock int from the jersey list and add it to an int
+            int stock = jerseyList.First().jerseyStock + 1;
+            //update the stock to be stock + 1
+            string updateStock = "update jerseys set jerseyStock=@stock where jerseyId =@id";
+            SqlParameter[] sqlParameters = new SqlParameter[2];
+            sqlParameters[0] = new SqlParameter("@stock", stock);
+            sqlParameters[1] = new SqlParameter("@id", jerseyId);
 
-            ////ececute update price command
-            //db.Database.ExecuteSqlCommand(priceQuery, sql);
+            Debug.WriteLine("updating jersey id " + jerseyId + " so that the stock goes from " + jerseyList.First().jerseyStock + " to " + stock);
+            db.Database.ExecuteSqlCommand(updateStock, sqlParameters);
             return RedirectToAction("Show/" + id);
         }
         public ActionResult Add()
         {
-            //get list of all jerseys
-            string alljerseys = "select * from Jerseys";
-            List<Jersey> jerseys = db.Jerseys.SqlQuery(alljerseys).ToList();
+            ////get list of all jerseys
+            //string alljerseys = "select * from Jerseys";
+            //List<Jersey> jerseys = db.Jerseys.SqlQuery(alljerseys).ToList();
 
             //get list of all jerseys
             string allCustomer = "select * from Customers";
             List<Customer> customer = db.Customers.SqlQuery(allCustomer).ToList();
 
-            //get order id
-            //string getid = "select max(orderId) from Orders";
-            //Order order = db.Orders.SqlQuery(getid).First();
-
-            AddOrder addOrder = new AddOrder();
-            addOrder.Jerseys = jerseys;
-            addOrder.Customers = customer;
-            return View(addOrder);
+            return View(customer);
         }
         [HttpPost]
-        public ActionResult Add(int customerId,int jerseyId)
+        public ActionResult Add(int customerId)
         {
             //add to orders
             string query = "insert into Orders (customerid,orderDate) values(@customerId,@date)";
@@ -160,6 +168,35 @@ namespace PassionProject.Controllers
             
 
             db.Database.ExecuteSqlCommand(query, sqlParameter);
+
+            return RedirectToAction("List");
+        }
+        public ActionResult DeleteOrder(int id)
+        {
+            Order order = db.Orders.SqlQuery("select * from Orders where orderId = @id", new SqlParameter("@id", id)).FirstOrDefault();
+            string query = "select * from Jerseys inner join OrderJerseys on Jerseys.jerseyId = OrderJerseys.Jersey_jerseyId where OrderJerseys.Order_orderId = @id";
+            SqlParameter parameter = new SqlParameter("@id", id);
+            List<Jersey> jerseyOrders = db.Jerseys.SqlQuery(query, parameter).ToList();
+
+            ShowOrder showOrder = new ShowOrder();
+            showOrder.ord = order;
+            showOrder.jerseys = jerseyOrders;
+
+            return View(showOrder);
+        }
+        public ActionResult Delete(int id)
+        {
+            //delete from orders
+            string query = "delete from Orders where orderId= @id";
+            SqlParameter parameter = new SqlParameter("@id", id);
+
+            db.Database.ExecuteSqlCommand(query, parameter);
+
+            //also delete from bridging table with any jerseys in that order
+            string query2 = "delete from OrderJerseys where Order_orderId=@id";
+            SqlParameter parameter2 = new SqlParameter("@id", id);
+
+            db.Database.ExecuteSqlCommand(query2, parameter2);
 
             return RedirectToAction("List");
         }

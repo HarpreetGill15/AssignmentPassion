@@ -82,7 +82,7 @@ namespace PassionProject.Controllers
             Jersey jersey = db.Jerseys.SqlQuery("select * from Jerseys where jerseyId = @id", new SqlParameter("@id", id)).FirstOrDefault();
             return View(jersey);
         }
-        [HttpPost]
+        
         public ActionResult Delete(int id)
         {
 

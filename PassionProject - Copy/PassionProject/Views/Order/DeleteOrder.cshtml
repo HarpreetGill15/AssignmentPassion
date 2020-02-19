@@ -1,0 +1,41 @@
+﻿@model PassionProject.Models.ViewModels.ShowOrder
+@{
+    ViewBag.Title = "DeleteOrder";
+}
+
+<h2>DeleteOrder</h2>
+<div class="alert alert-dark">
+    <h3>Are you sure you want to delete the order: #@Model.ord.orderId</h3>
+    <div>
+        <div>
+            <label class="font-weight-bold">Order Date</label>
+            <label class="font-italic">@Model.ord.orderDate</label>
+        </div>
+        <div>
+            <label class="font-weight-bold">Price</label>
+            <label class="font-italic">$@Model.ord.orderPrice</label>
+        </div>
+        <div class="alert alert-info">
+            <h4>Jerseys</h4>
+            @{
+                foreach (var jersey in Model.jerseys)
+                {
+                        <div>
+                            <label class="font-weight-bold">Name</label>
+                            <label class="font-italic">@jersey.jerseyName</label>
+                            <label class="font-weight-bold">Description</label>
+                            <label class="font-italic">@jersey.jerseyDescription</label>
+                        </div>
+                }
+            }
+        </div>
+
+
+        <form class="" action="/Order/Delete/@Model.ord.orderId">
+            <input type="submit" value="Delete Order" class="btn btn-danger" />
+            <a href="/Order/List" class="btn btn-primary">Back</a>
+        </form>
+    </div>
+</div>
+
+
