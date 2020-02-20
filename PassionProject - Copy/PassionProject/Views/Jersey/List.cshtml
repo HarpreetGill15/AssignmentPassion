@@ -13,27 +13,30 @@
     <div class="row">
         @foreach (var item in Model)
         {
-            <div class="col-sm-4 d-flex pb-3">
-                <div class="card">
-                    <div class="card-header">
-                        @item.jerseyName
-                    </div>
-                    <div class="card-body">
-                        <div class="card-img bg-primary" style="height:250px">
-                            <div class="w-100 h-100 bg-light text-black-50 text-center">Coming Soon</div>
+            
+                <div class="col-sm-4 d-flex pb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            @item.jerseyName
                         </div>
-                        <div class="card-title">
-                            <p>Price: $@item.jerseyPrice<span class="badge badge-warning">@item.jerseySize</span></p>
+                        <div class="card-body">
+                            <div class="card-img bg-primary" style="height:250px">
+                                <div class="w-100 h-100 bg-light text-black-50 text-center">Coming Soon</div>
+                            </div>
+                            <div class="card-title">
+                                <p>Price: $@item.jerseyPrice<span class="badge badge-warning">@item.jerseySize</span></p>
+                            </div>
+                            <p class="card-text">@item.jerseyDescription</p>
+                            <p>In Stock: <span class="badge badge-info">@item.jerseyStock</span></p>
+                            <a href="/Jersey/Show/@item.jerseyId" class="btn btn-primary">View</a>
+                                <a href="/Jersey/Update/@item.jerseyId" class="btn btn-secondary">Edit</a>
+                                <a href="/Order/Add" class="btn btn-info">Order</a>
+                                <a href="/Jersey/DeleteJersey/@item.jerseyId" class="btn btn-danger">Delete</a>
                         </div>
-                        <p class="card-text">@item.jerseyDescription</p>
-                        <p>In Stock: <span class="badge badge-info">@item.jerseyStock</span></p>
-                        <a href="/Jersey/Update/@item.jerseyId" class="btn btn-secondary">Edit</a>
-                        <a href="/Order/Add" class="btn btn-info">Order</a>
-                        <a href="/Jersey/DeleteJersey/@item.jerseyId" class="btn btn-danger">Delete</a>
+
                     </div>
-                    
                 </div>
-            </div>
+            
 
         }
     </div>

@@ -53,5 +53,6 @@
 <form method="post" action="/Order/CompleteOrder/@Model.ord.orderId">
     <input name="sum" id="sum" class="hide" value="@Model.jerseys.Sum(i => i.jerseyPrice)"/>
     <input type="submit" class="btn btn-info" name="sum" id="sum" value="Complete Order"/>
+    <a href="/Order/List" class="btn btn-primary">Back to Orders</a>
 </form>
 <span>Total: $@Model.jerseys.Sum(i => i.jerseyPrice)</span>

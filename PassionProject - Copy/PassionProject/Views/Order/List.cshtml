@@ -47,27 +47,5 @@
         }
 
     }
-
-    @*@{
-            foreach (var jersey in Model.jerseys)
-            {
-                <tr>
-                    <td>
-                        @jersey.jerseyName
-                    </td>
-                    <td>
-                        @jersey.jerseySize
-                    </td>
-                    <td>
-                        @jersey.jerseyPrice
-                    </td>
-                    <td>
-                        @Html.ActionLink("Delete", "Delete", new { id = jersey.jerseyId })
-                    </td>
-                </tr>
-            }
-        }*@
-
-
 </table>
 

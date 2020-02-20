@@ -1,7 +1,38 @@
-﻿
+﻿@model PassionProject.Models.Jersey
 @{
     ViewBag.Title = "Show";
 }
 
 <h2>Show</h2>
 
+<div class="row">
+    <div class="col p-3">
+        <div class="card">
+            <div class="card-header">
+                @Model.jerseyName
+            </div>
+            <div class="card-body">
+                <div class="card-img bg-primary" style="height:250px">
+                    <div class="w-100 h-100 bg-light text-black-50 text-center">Coming Soon</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="card col p-3">
+        <div class="mb-5">
+            <h4 class="p-2">@Model.jerseyDescription</h4>
+            <h5 class="p-2">Price: $@Model.jerseyPrice</h5>
+
+            <h5 class="p-2">In Stock: <span class="badge badge-info">@Model.jerseyStock</span></h5>
+            <h5 class="p-2">Size: @Model.jerseySize</h5>
+        </div>
+        
+        <div class="row mt-5">
+            <a href="/Jersey/Update/@Model.jerseyId" class="btn btn-secondary col">Edit</a>
+            <a href="/Order/Add" class="btn btn-info col">Order</a>
+            <a href="/Jersey/DeleteJersey/@Model.jerseyId" class="btn btn-danger col">Delete</a>
+        </div>
+        
+    </div>
+</div>
