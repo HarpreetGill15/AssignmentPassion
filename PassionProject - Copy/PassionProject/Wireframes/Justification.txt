@@ -1,0 +1,12 @@
+I had to reduce my scope due to time and difficulty.
+The things i would like to do later are:
+	Implement Login for customer 
+	Add a search for jersey and customer
+	Add a table for sizes so sizes can be a dropdown
+	Dont allow for jerseys to be added to an order when stock is 0
+	Change the visual for list of jerseys and single jersey
+
+I had to change some of the design because it did not work with what i was creating and i also had some things to add that changed some things like the view for customer because the orders would be too much for that small section
+
+My database has tables called jerseys, orders, customers
+because there can be many jerseys for one order and many orders with many jerseys there is also a bridging table called ordersJerseys.
