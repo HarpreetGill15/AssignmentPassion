@@ -3,6 +3,7 @@ using PassionProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,12 +13,15 @@ namespace PassionProject.Controllers
     public class JerseyController : Controller
     {
         private ShopContext db = new ShopContext();
-        // GET: Jersey
+        //Jersey/List
         public ActionResult List()
         {
             List<Jersey> jerseys = db.Jerseys.SqlQuery("Select * from Jerseys").ToList();
             return View(jerseys);
         }
+        //Add search for jersey later
+
+        //Jersey/Show/int
         public ActionResult Show(int? id)
         {
             if(id == null)
@@ -31,6 +35,7 @@ namespace PassionProject.Controllers
             }
             return View(jersey);
         }
+        //Customer/Add
         public ActionResult Add()
         {
             return View();
@@ -52,8 +57,10 @@ namespace PassionProject.Controllers
             return RedirectToAction("List");
 
         }
+        //Customer/Update/int
         public ActionResult Update(int id)
         {
+            //show the jerseys information in the text boxes
             Jersey jersey = db.Jerseys.SqlQuery("select * from Jerseys where jerseyId = @id", new SqlParameter("@id", id)).FirstOrDefault();
             return View(jersey);
         }
@@ -61,7 +68,9 @@ namespace PassionProject.Controllers
         public ActionResult Update(int id,string jerseyName,string jerseySize,string jerseyDescription, double jerseyPrice, int jerseyStock)
         {
 
-            //Debug.WriteLine("I am trying to edit a pet's name to "+jerseyName+" and change the weight to "+PetWeight.ToString());
+            Debug.WriteLine("I am trying to edit a jerseys's name to "+jerseyName+
+                " the size to "+jerseySize+" the description to "+jerseyDescription+" price to "+jerseyPrice+
+                " the stock to "+jerseyStock+" for the jersey with the id of "+id);
 
             string query = "update Jerseys set jerseyName=@name, jerseySize=@size, jerseyDescription=@description, jerseyPrice=@price, jerseyStock=@stock where jerseyId=@id";
             SqlParameter[] sqlparams = new SqlParameter[6];
@@ -73,19 +82,19 @@ namespace PassionProject.Controllers
             sqlparams[5] = new SqlParameter("@id", id);
 
             db.Database.ExecuteSqlCommand(query, sqlparams);
-
-            //logic for updating the pet in the database goes here
+            
             return RedirectToAction("List");
         }
+        //Jersey/DeleteJersey/int
         public ActionResult DeleteJersey(int id)
         {
             Jersey jersey = db.Jerseys.SqlQuery("select * from Jerseys where jerseyId = @id", new SqlParameter("@id", id)).FirstOrDefault();
             return View(jersey);
         }
-        
+        //Delete jersey after form submit
         public ActionResult Delete(int id)
         {
-
+            Debug.WriteLine("I am trying to delete jersey with the id of "+id);
             string query = "delete from Jerseys where jerseyId= @id";
             SqlParameter parameter = new SqlParameter("@id", id);
 

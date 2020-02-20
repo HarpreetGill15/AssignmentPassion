@@ -14,12 +14,13 @@ namespace PassionProject.Controllers
     public class OrderController : Controller
     {
         private ShopContext db = new ShopContext();
-        // GET: Order
+        //Order/List
         public ActionResult List()
         {
             List<Order> orders = db.Orders.SqlQuery("Select * from Orders").ToList();
             return View(orders);
         }
+        //Order/Show/int
         public ActionResult Show(int? id)
         {
             //check if user lands on page without a given id
@@ -43,6 +44,9 @@ namespace PassionProject.Controllers
             string alljerseys = "select * from Jerseys";
             List<Jersey> jerseys = db.Jerseys.SqlQuery(alljerseys).ToList();
 
+            //output information of that order
+            //output inforamtion of all jerseys in that order
+            //output the list of all jerseys to populate the dropdown
             ShowOrder showOrder = new ShowOrder();
             showOrder.ord = order;
             showOrder.jerseys = jerseyOrders;
@@ -54,7 +58,7 @@ namespace PassionProject.Controllers
         [HttpPost]
         public ActionResult AddJersey(int id, int jerseyId)
         {
-                Debug.WriteLine("Order is " + id + " and jerseyId is " + jerseyId+" and price is ");
+            Debug.WriteLine("Order is " + id + " and jerseyId is " + jerseyId+" and price is ");
             //check if the jersey is already in the order
             string check = "select * from jerseys inner join OrderJerseys on OrderJerseys.Jersey_jerseyid = jerseys.jerseyId where Jersey_jerseyid = @id and OrderJerseys.Order_orderid = @orderId";
             SqlParameter[] sql = new SqlParameter[2];
@@ -118,18 +122,20 @@ namespace PassionProject.Controllers
             db.Database.ExecuteSqlCommand(updateStock, sqlParameters);
             return RedirectToAction("Show/" + id);
         }
+        //Order/Add
         public ActionResult Add()
         {
             ////get list of all jerseys
             //string alljerseys = "select * from Jerseys";
             //List<Jersey> jerseys = db.Jerseys.SqlQuery(alljerseys).ToList();
 
-            //get list of all jerseys
+            //get list of all Customers
             string allCustomer = "select * from Customers";
             List<Customer> customer = db.Customers.SqlQuery(allCustomer).ToList();
 
             return View(customer);
         }
+        //Order/Add/int
         [HttpPost]
         public ActionResult Add(int customerId)
         {
@@ -171,13 +177,17 @@ namespace PassionProject.Controllers
 
             return RedirectToAction("List");
         }
+        //Order/DeleteOrder/int
         public ActionResult DeleteOrder(int id)
         {
             Order order = db.Orders.SqlQuery("select * from Orders where orderId = @id", new SqlParameter("@id", id)).FirstOrDefault();
+
             string query = "select * from Jerseys inner join OrderJerseys on Jerseys.jerseyId = OrderJerseys.Jersey_jerseyId where OrderJerseys.Order_orderId = @id";
             SqlParameter parameter = new SqlParameter("@id", id);
             List<Jersey> jerseyOrders = db.Jerseys.SqlQuery(query, parameter).ToList();
 
+            //output the order information to the view
+            //output all the jerseys in that order
             ShowOrder showOrder = new ShowOrder();
             showOrder.ord = order;
             showOrder.jerseys = jerseyOrders;
@@ -186,6 +196,7 @@ namespace PassionProject.Controllers
         }
         public ActionResult Delete(int id)
         {
+            Debug.WriteLine("trying to delete order with the id of " + id);
             //delete from orders
             string query = "delete from Orders where orderId= @id";
             SqlParameter parameter = new SqlParameter("@id", id);

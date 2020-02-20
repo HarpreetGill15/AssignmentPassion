@@ -14,7 +14,7 @@ namespace PassionProject.Controllers
     public class CustomerController : Controller
     {
         private ShopContext db = new ShopContext();
-        // GET: Customer
+        //Customer/List
         public ActionResult List()
         {
             List<Customer> customers = db.Customers.SqlQuery("Select * from Customers").ToList();
@@ -25,6 +25,7 @@ namespace PassionProject.Controllers
         {
             return View();
         }
+        //Customer/Add
         [HttpPost]
         public ActionResult Add(string customerFirstName, string customerLastName, string customerEmail, string customerPhone, string customerAddress, string customerPostalCode, string customerCountry)
         {
@@ -46,6 +47,7 @@ namespace PassionProject.Controllers
 
             return RedirectToAction("List");
         }
+        //Customer/Show/id
         public ActionResult Show(int? id)
         {
             if (id == null)
@@ -59,20 +61,25 @@ namespace PassionProject.Controllers
             }
             //show list of orders of that customer
             List<Order> orders = db.Orders.SqlQuery("Select * from Orders where customerId=@id", new SqlParameter("@id",id)).ToList();
-            //show the jerseys this customer ordered
-
+            
+            //add the customer and all the orders to the view model
             ShowCustomer show = new ShowCustomer();
             show.Customer = customer;
             show.orders = orders;
+
             return View(show);
         }
+        //Customer/DeleteCustomer/int
         public ActionResult DeleteCustomer(int id)
         {
+            //show that customers information
             Customer customer = db.Customers.SqlQuery("select * from Customers where customerId = @id", new SqlParameter("@id", id)).FirstOrDefault();
             return View(customer);
         }
+        //delete from form
         public ActionResult Delete(int id)
         {
+            Debug.WriteLine("Deleting customer with the id of "+id);
             string query = "delete from Customers where customerId= @id";
             SqlParameter parameter = new SqlParameter("@id", id);
 
@@ -80,8 +87,10 @@ namespace PassionProject.Controllers
 
             return RedirectToAction("List");
         }
+        //Customer/Update/id
         public ActionResult Update(int id)
         {
+            //show the customer information in the text boxes
             Customer customer = db.Customers.SqlQuery("select * from Customers where customerId = @id", new SqlParameter("@id", id)).FirstOrDefault();
             return View(customer);
         }
@@ -106,7 +115,7 @@ namespace PassionProject.Controllers
 
             db.Database.ExecuteSqlCommand(query, sqlParameters);
 
-            //logic for updating the pet in the database goes here
+            
             return RedirectToAction("List");
         }
     }
