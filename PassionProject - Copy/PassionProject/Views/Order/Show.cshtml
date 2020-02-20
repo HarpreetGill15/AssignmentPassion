@@ -2,19 +2,19 @@
 @{
     ViewBag.Title = "Show";
 }
-<h2>Order #@Model.ord.orderId</h2>
+<h2>Order <span class="text-muted">#@Model.ord.orderId</span></h2>
 <p>Order Date: @Model.ord.orderDate</p>
 @* This view is to show the details of one order and add a jersey to this order *@
 <form method="post" action="/Order/AddJersey/@Model.ord.orderId">
-    <select name="jerseyId" id="jerseyId">
-        @{ 
-            foreach(var jersey in Model.allJerseys)
+    <select name="jerseyId" id="jerseyId" class="custom-select">
+        @{
+            foreach (var jersey in Model.allJerseys)
             {
                 <option value="@jersey.jerseyId">@jersey.jerseyName</option>
             }
         }
     </select>
-    <input type="submit" value="Add Jersey" />
+    <input type="submit" value="Add Jersey" class="btn btn-success"/>
 </form>
 
 <table class="table">
@@ -29,30 +29,34 @@
             Price
         </th>
         <th>
-            Remove
+            
         </th>
     </tr>
     @{
-        
+
         foreach (var orderedJersey in Model.jerseys)
         {
-            
-        <tr>
-            <td>@orderedJersey.jerseyName</td>
-            <td>@orderedJersey.jerseySize</td>
-            <td>@orderedJersey.jerseyPrice</td>
-            <td><a href="/Order/RemoveJersey/@Model.ord.orderId?jerseyId=@orderedJersey.jerseyId">Remove</a></td>
-        </tr>
+
+            <tr>
+                <td>@orderedJersey.jerseyName</td>
+                <td>@orderedJersey.jerseySize</td>
+                <td>@orderedJersey.jerseyPrice</td>
+                <td><a href="/Order/RemoveJersey/@Model.ord.orderId?jerseyId=@orderedJersey.jerseyId" class="btn btn-danger">Remove</a></td>
+            </tr>
         }
 
 
 
     }
-    </table>
+</table>
 @* Referenceing youtube video on getting total price of order https://www.youtube.com/watch?v=v-g_q3z3aGc *@
+<label>Total Price:</label>
+<label>$@Model.jerseys.Sum(i => i.jerseyPrice)</label>
 <form method="post" action="/Order/CompleteOrder/@Model.ord.orderId">
-    <input name="sum" id="sum" class="hide" value="@Model.jerseys.Sum(i => i.jerseyPrice)"/>
-    <input type="submit" class="btn btn-info" name="sum" id="sum" value="Complete Order"/>
+    
+    <input name="sum" id="sum" style="width:50px; display:none;" value="@Model.jerseys.Sum(i => i.jerseyPrice)"/>
+    <input type="submit" class="btn btn-info" name="sum" id="sum" value="Complete Order" />
     <a href="/Order/List" class="btn btn-primary">Back to Orders</a>
 </form>
-<span>Total: $@Model.jerseys.Sum(i => i.jerseyPrice)</span>
+
+@*<span>Total: $@Model.jerseys.Sum(i => i.jerseyPrice)</span>*@

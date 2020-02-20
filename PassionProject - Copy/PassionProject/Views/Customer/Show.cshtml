@@ -3,7 +3,7 @@
     ViewBag.Title = "Show";
 }
 
-<h2>View Customer #@Model.Customer.customerId</h2>
+<h2>View Customer <span class="text-muted">#@Model.Customer.customerId</span></h2>
 
 <div class="card" style="width:35%">
     <div class="card-header">
@@ -38,3 +38,4 @@
         }
     }
 </div>
+<a href="/Customer/List" class="btn btn-primary">Back to Customers</a>
